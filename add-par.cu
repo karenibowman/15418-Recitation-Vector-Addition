@@ -1,19 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-// This file is one you can complete yourself! TODO for you.
  
 // CUDA kernel. Each thread takes care of one element of c
 __global__ void vecAdd(double *a, double *b, double *c, int n)
 {
     // Get our global thread ID
-    int id = ?? ;
+    int id = blockIdx.x*blockDim.x+threadIdx.x;
  
     // Make sure we do not go out of bounds
-    ??
-
-    c[id] = a[id] + b[id];
+    if (id < n)
+        c[id] = a[id] + b[id];
 }
  
 int main( int argc, char* argv[] )
@@ -61,19 +58,17 @@ int main( int argc, char* argv[] )
  
     int blockSize, gridSize;
  
-    // Number of threads in each thread block, must be a multple of 32, 1024 is the maximum.
-    blockSize = ??;
+    // Number of threads in each thread block
+    blockSize = 1024;
  
     // Number of thread blocks in grid
-    gridSize = ??;                                                        //(int)ceil((float)n/blockSize);
+    gridSize = (int)ceil((float)n/blockSize);
  
     // Execute the kernel
-    vecAdd<<< ??, ?? >>>(d_a, d_b, d_c, n);
+    vecAdd<<<gridSize, blockSize>>>(d_a, d_b, d_c, n);
  
-    // Why don't we need to use cudaDeviceSynchronize()? cudaMemcpy has an implicit synchronization call. 
-    cudaDeviceSynchronize()
-
     // Copy array back to host
+    // Why don't we need to use cudaDeviceSynchronize()? cudaMemcpy has an implicit synchronization call. 
     cudaMemcpy( h_c, d_c, bytes, cudaMemcpyDeviceToHost );
  
     // Sum up vector c and print result divided by n, this should equal 1 within error

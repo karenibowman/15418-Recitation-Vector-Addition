@@ -1,13 +1,10 @@
 # An_Introduction_to_GPU_Programming
-This is the code for "An introduction to GPU Programming with CUDA" by Siraj Raval on Youtube
+This is the code for "An introduction to GPU Programming with CUDA" by Oak Ridge Laboratory, modified for 15-418!
 
-# Coding Challenge - Due Date Thursday, September 21, 2017 
-
-This weeks challenge is to create a simple C++ program that you can parallelize using CUDA. Document it's speed before and after using CUDA to demonstrate that you were able to optimize your code via the GPU. [Here](https://www.cs.cmu.edu/~scandal/nesl/algorithms.html) are some examples of algorithms you can parallelize. Bonus points if you parallelize a simple neural network. Good luck!
 
 ## Overview
 
-This is the code for [this](https://youtu.be/1cHx1baKqq0) video on Youtube by Siraj Raval. This is an introduction to parallel programming on the GPU by using Nvidia's CUDA toolkit. We're going to add two arrays together, and parallelize that process using CUDA (an extension of C). 
+This is code modified from [this](https://youtu.be/1cHx1baKqq0) video on Youtube by Siraj Raval, and the example https://www.olcf.ornl.gov/tutorials/cuda-vector-addition/. This is an introduction to parallel programming on the GPU by using Nvidia's CUDA toolkit. We're going to add two vectors together, and parallelize that process using CUDA (an extension of C). 
 
 ## Dependencies
 
@@ -15,9 +12,18 @@ This is the code for [this](https://youtu.be/1cHx1baKqq0) video on Youtube by Si
 
 ## Usage
 
-Run the following command to compile
+Run the following command to compile the sequential example
 
-`nvcc add.cu -o add_cuda`
+`nvcc add-seq.cu -o add_cuda_seq`
+
+This command to execute
+
+`./add_cuda_seq`
+
+
+Run the following command to compile the parallel example
+
+`nvcc add-par.cu -o add_cuda`
 
 This command to execute
 
@@ -29,5 +35,4 @@ And this command to profile (clock) it
 
 ## Credits
 
-The credits for this code go to Nvidia. I've merely created a wrapper to get people started.
-
+The credits for this code go to Nvidia, Siraj Raval & Oak Ridge Laboratory.
